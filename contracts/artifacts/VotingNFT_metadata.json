@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.22+commit.4fc1097e"
+		"version": "0.8.23+commit.f704f362"
 	},
 	"language": "Solidity",
 	"output": {
@@ -21,11 +21,6 @@
 						"internalType": "string",
 						"name": "_symbol",
 						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maximumMintNFT",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -283,17 +278,29 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "_maximumMintNFT",
-				"outputs": [
+				"anonymous": false,
+				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
+						"indexed": false,
+						"internalType": "string",
+						"name": "question",
+						"type": "string"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "voter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bool",
+						"name": "answer",
+						"type": "bool"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
+				"name": "VoteChanged",
+				"type": "event"
 			},
 			{
 				"inputs": [
@@ -309,6 +316,19 @@
 					}
 				],
 				"name": "approve",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "question",
+						"type": "string"
+					}
+				],
+				"name": "askQuestion",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -341,6 +361,29 @@
 					}
 				],
 				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "question",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "player1",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "player2",
+						"type": "address"
+					}
+				],
+				"name": "decideAndMintNFT",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -444,24 +487,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "to",
-						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "uri",
-						"type": "string"
-					}
-				],
-				"name": "safeMint",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
 						"name": "from",
 						"type": "address"
 					},
@@ -523,24 +548,6 @@
 					}
 				],
 				"name": "setApprovalForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "uri",
-						"type": "string"
-					}
-				],
-				"name": "setTokenURI",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -630,6 +637,30 @@
 				"name": "transferOwnership",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "votes",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -788,7 +819,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTCollection.sol": "NFTEventAnniversary"
+			"contracts/NFTEventQuestGame.sol": "VotingNFT"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -938,12 +969,12 @@
 				"dweb:/ipfs/QmVBEei6aTnvYNZp2CHYVNKyZS4q1KkjANfY39WVXZXVoT"
 			]
 		},
-		"contracts/NFTCollection.sol": {
-			"keccak256": "0xdd67a60d2966915bdc3f854db3b2a13121d19f7d77780e8d5a2ebc62bb68e0f2",
+		"contracts/NFTEventQuestGame.sol": {
+			"keccak256": "0xca93fbe48af201765947dbe648d1da00e41b19b65b036a9fc41020f611f7b564",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0a6d516b7fbd2fcbb67a3e6600c3c6e5530da3e297b5a6b34b3ae327a823de54",
-				"dweb:/ipfs/QmRoM4Dxe1tfUqSiX87DTXrKJDB88FVkpJEHRATqjN4GvX"
+				"bzz-raw://99a10059df9a43c2f244d25de6d0fa2c340e2b22674d2d85f5511d56548036ee",
+				"dweb:/ipfs/QmcEe8KiBX8tciJcy6YM3jAgJReMsLmpd48AvtJL1pC6Kx"
 			]
 		}
 	},

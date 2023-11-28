@@ -1,54 +1,62 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract NFTCollection {
-    // Địa chỉ của chủ sở hữu hợp đồng
-    address public owner;
-    uint256 totalURIs = 0;
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-    struct KeyValuePair {
-        uint256 tokenId;
-        string uri;
-    }
-    
-    // Mapping để lưu trữ các URI được đẩy lên
-    mapping(uint256 => string) public uris;
+contract NFTEventAnniversary is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
+    uint256 private _nextTokenId;
+    uint256 public _maximumMintNFT;
 
-    // Sự kiện được kích hoạt khi một URI mới được đẩy lên
-    event URIAdded(uint256 indexed tokenId, string uri);
-
-    // Xây dựng hợp đồng, chỉ chủ sở hữu mới có thể gọi các hàm quản lý
-    constructor() {
-        owner = msg.sender;
+    constructor(address initialOwner, string memory _name, string memory _symbol, uint256 maximumMintNFT)
+        ERC721(_name, _symbol)
+        Ownable(initialOwner)
+        
+    {
+        _maximumMintNFT = maximumMintNFT;
     }
 
-    // Hàm modifier để đảm bảo chỉ có chủ sở hữu mới có thể gọi được
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner can call this function");
-        _;
-    }
-
-    // Hàm để đẩy lên một URI mới
-    function pushURI(uint256 tokenId, string memory uri) external onlyOwner {
-        uris[tokenId] = uri;
-        totalURIs++;
-        emit URIAdded(tokenId, uri);
-    }
-
-    // Hàm để chuyển quyền sở hữu hợp đồng
-    function transferOwnership(address newOwner) external onlyOwner {
-        require(newOwner != address(0), "Invalid new owner address");
-        owner = newOwner;
-    }
-
-    // Hàm để đọc tất cả các URI có trong mapping
-    function getAllURIs() external view returns (KeyValuePair[] memory) {
-        KeyValuePair[] memory allURIs = new KeyValuePair[](totalURIs);
-        for (uint256 i = 0; i < totalURIs; i++) {
-            allURIs[i] = KeyValuePair(i, uris[i]);
+    function safeMint(address to, string memory uri) public payable {
+        if(_maximumMintNFT == 0 || _maximumMintNFT > _nextTokenId){
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+            _setTokenURI(tokenId, uri);
+        }else {
+            revert("There are no more NFTs");
         }
-        return allURIs;
+        
+        if(msg.sender != owner()) {
+            // Chuyển phí gas cho chủ hợp đồng
+            payable(owner()).transfer(msg.value);
+        }
+        
+    }
+
+    function setTokenURI(uint256 tokenId, string memory uri) public onlyOwner {
+        _setTokenURI(tokenId, uri);
     }
 
     
+    // The following functions are overrides required by Solidity.
+
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
 }

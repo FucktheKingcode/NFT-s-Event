@@ -8,24 +8,24 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "initialOwner",
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "symbol",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_uri",
+						"type": "string"
+					},
+					{
+						"internalType": "contract LocationProvider",
+						"name": "_locationProvider",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_symbol",
-						"type": "string"
-					},
-					{
-						"internalType": "uint256",
-						"name": "maximumMintNFT",
-						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -283,19 +283,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "_maximumMintNFT",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -359,6 +346,25 @@
 						"internalType": "address",
 						"name": "",
 						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "getLocation",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -446,15 +452,16 @@
 						"internalType": "address",
 						"name": "to",
 						"type": "address"
-					},
-					{
-						"internalType": "string",
-						"name": "uri",
-						"type": "string"
 					}
 				],
 				"name": "safeMint",
-				"outputs": [],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "payable",
 				"type": "function"
 			},
@@ -523,24 +530,6 @@
 					}
 				],
 				"name": "setApprovalForAll",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "tokenId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "uri",
-						"type": "string"
-					}
-				],
-				"name": "setTokenURI",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -628,6 +617,19 @@
 					}
 				],
 				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "tokenId",
+						"type": "uint256"
+					}
+				],
+				"name": "updateLocation",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -788,7 +790,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTCollection.sol": "NFTEventAnniversary"
+			"contracts/NFTEventConcert.sol": "ArtistDynamicNFT"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -898,6 +900,14 @@
 				"dweb:/ipfs/QmNgFkoXNWoUbAyw71rr1sKQ95Rj2GfvYiWg79xEYDn2NY"
 			]
 		},
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
 		"@openzeppelin/contracts/utils/Strings.sol": {
 			"keccak256": "0x55f102ea785d8399c0e58d1108e2d289506dde18abc6db1b7f68c1f9f9bc5792",
 			"license": "MIT",
@@ -938,12 +948,12 @@
 				"dweb:/ipfs/QmVBEei6aTnvYNZp2CHYVNKyZS4q1KkjANfY39WVXZXVoT"
 			]
 		},
-		"contracts/NFTCollection.sol": {
-			"keccak256": "0xdd67a60d2966915bdc3f854db3b2a13121d19f7d77780e8d5a2ebc62bb68e0f2",
+		"contracts/NFTEventConcert.sol": {
+			"keccak256": "0xd8267a5f90663f43bd811f9a43091e777f3699d83ff72c44b1c75015713f5619",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0a6d516b7fbd2fcbb67a3e6600c3c6e5530da3e297b5a6b34b3ae327a823de54",
-				"dweb:/ipfs/QmRoM4Dxe1tfUqSiX87DTXrKJDB88FVkpJEHRATqjN4GvX"
+				"bzz-raw://962abeea66bf3ba96b4521e9e3062ffa656946425384586c4a555bb42ceb24ab",
+				"dweb:/ipfs/QmfJXgiS8P7G1R2CmzUiGaVKyot16dTsQyi5AhM4tMvddx"
 			]
 		}
 	},

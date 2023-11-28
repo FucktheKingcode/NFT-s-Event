@@ -131,7 +131,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTCollection.sol": "URIStorage"
+			"contracts/storage.sol": "URIStorage"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -145,7 +145,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/NFTCollection.sol": {
+		"contracts/storage.sol": {
 			"keccak256": "0x71411192b68c64742e7590ffcafde2b43f11bb7494aca5c0f8535267b5ff52cc",
 			"license": "MIT",
 			"urls": [

@@ -8,16 +8,29 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFTEventAnniversary is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     uint256 private _nextTokenId;
+    uint256 public _maximumMintNFT;
 
-    constructor(address initialOwner, string memory _name, string memory _symbol)
+    constructor(address initialOwner, string memory _name, string memory _symbol, uint256 maximumMintNFT)
         ERC721(_name, _symbol)
         Ownable(initialOwner)
-    {}
+        
+    {
+        _maximumMintNFT = maximumMintNFT;
+    }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
-        uint256 tokenId = _nextTokenId++;
-        _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+    function safeMint(address to, string memory uri) public payable {
+        if(_maximumMintNFT == 0 || _maximumMintNFT > _nextTokenId){
+            uint256 tokenId = _nextTokenId++;
+            _safeMint(to, tokenId);
+            _setTokenURI(tokenId, uri);
+        } else {
+            revert("There are no more NFTs");
+        }
+
+        if(msg.sender != owner()) {
+            // Chuyển phí gas cho chủ hợp đồng
+            payable(owner()).transfer(msg.value);
+        }
     }
 
     function setTokenURI(uint256 tokenId, string memory uri) public onlyOwner {
@@ -27,6 +40,14 @@ contract NFTEventAnniversary is ERC721, ERC721URIStorage, ERC721Burnable, Ownabl
     
     // The following functions are overrides required by Solidity.
 
+    function transferFrom(address from, address to, uint256 tokenId)
+        public
+        override(ERC721, IERC721)
+        virtual
+    {
+        require(from == address(0), "Err: token transfer is BLOCKED");   
+        super.transferFrom(from, to, tokenId);
+    }
 
     function tokenURI(uint256 tokenId)
         public
