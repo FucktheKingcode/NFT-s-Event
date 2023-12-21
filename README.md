@@ -1,9 +1,14 @@
 ![image](https://github.com/FucktheKingcode/NFT-s-Event/assets/112191530/6bfe154a-20db-47bb-a5f8-e7e453ecaa43)
-Vision
-Customize NFT offerings for events.
 
-Description
-Below is a general sketch of a site that offers customized packages of NFT services for events:
+<h1> Vision </h1>
+<text>
+        Customize NFT offerings for events.
+</text>
+
+
+<h1> Description </h1>
+<text>
+   Below is a general sketch of a site that offers customized packages of NFT services for events:
 
 NFT Events makes planning your next event creative and memorable with custom Non-Fungible Tokens (NFTs).
 
@@ -23,4 +28,6 @@ Donation/Auction NFTs - Create special edition NFTs to promote fundraising effor
 
 Our plans start at ~$10 for basic designs and scale based on desired features and complexity. We also offer a la carte options to build the perfect custom NFT experience for your ideas.
 
-Boost your event with innovative NFT technology. Contact our team today to create unique digital memories for your attendees. These memories will live forever on the blockchain.
+Boost your event with innovative NFT technology. Contact our team today to create unique digital memories for your attendees. These memories will live forever on the blockchain.     
+</text>
+
